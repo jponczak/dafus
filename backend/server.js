@@ -33,6 +33,12 @@ app.get("/", (req, res) => {
     res.json({message:"Welcome to the indexing app."});
 });
 
+if(process.env.NODE_ENV === 'production') {
+  app.get('/*', function (req, res) {
+   	res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  });
+}
+
 require("./app/routes/declaration.routes.js")(app);
 
 const PORT = process.env.PORT || 8080;
