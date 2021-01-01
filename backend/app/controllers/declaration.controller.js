@@ -42,7 +42,6 @@ exports.findAll = (req, res) => {
         currentPage: data.page - 1
       });
     })
-
       .catch(err => {
         res.status(500).send({
           message:
