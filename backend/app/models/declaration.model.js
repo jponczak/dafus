@@ -21,5 +21,4 @@ schema.plugin(mongoosePaginate);
 
 const Declaration = mongoose.model("declaration", schema);
 return Declaration;
-
 };
