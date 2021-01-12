@@ -5,7 +5,8 @@ const db = require("./app/models");
 const app = express();
 
 var corsOptions = {
-    origin: "http://localhost:5000"
+    origin: "http://localhost",
+    methods: "GET" 
 };
 
 app.use(cors(corsOptions));
