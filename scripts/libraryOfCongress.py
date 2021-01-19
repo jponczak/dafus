@@ -38,6 +38,20 @@ def updateVolume(volume):
         vol = volume
     return vol
 
+def getLinks(volume, pages):
+    linkArr=[]
+    for page in pages:
+        if len(page) == 1:
+            link = f"https://tile.loc.gov/image-services/iiif/service:mss:pldec:{volume}:000{page}/full/pct:50/0/default.jpg"
+        if len(page) == 2:
+            link = f"https://tile.loc.gov/image-services/iiif/service:mss:pldec:{volume}:00{page}/full/pct:50/0/default.jpg"
+        if len(page) == 3:
+            link = f"https://tile.loc.gov/image-services/iiif/service:mss:pldec:{volume}:0{page}/full/pct:50/0/default.jpg"
+        if len(page) == 4:
+            link = f"https://tile.loc.gov/image-services/iiif/service:mss:pldec:{volume}:{page}/full/pct:50/0/default.jpg"
+        linkArr.append(link)
+    return linkArr
+
 def getPages(pages):
     pageArr = []
     if "," in pages:
@@ -123,6 +137,7 @@ for page in htmlPages:
             district = cols[1].text
             volume = updateVolume(cols[2].text)
             pages = getPages(cols[3].text)
+            links = getLinks(volume, pages)
             combined = locationName + " " + district + " " + volume
             if len(locationName) > 1:
                 link = f"https://www.loc.gov/resource/pldec.{volume}/?sp={pages[0]}"
@@ -133,6 +148,7 @@ for page in htmlPages:
                     "volume": volume,
                     "pages": pages,
                     "link": link,
+                    "links":links,
                     "combined": combined
                 }
                 listLDVP.append(ldvp)
@@ -142,6 +158,7 @@ for page in htmlPages:
             district = cols[0].text
             volume = updateVolume(cols[1].text)
             pages = getPages(cols[2].text)
+            links = getLinks(volume, pages)
             combined = location + " " + district + " " + volume
             link = f"https://www.loc.gov/resource/pldec.{volume}/?sp={pages[0]}"
             ldvp = {
@@ -150,6 +167,7 @@ for page in htmlPages:
                 "volume": volume,
                 "pages": pages,
                 "link": link,
+                "links":links,
                 "combined": combined
             }
             listLDVP.append(ldvp)
@@ -159,6 +177,7 @@ for page in htmlPages:
             ldvp_temp = listLDVP[-1]
             volume = updateVolume(cols[0].text)
             pages = getPages(cols[1].text)
+            links = getLinks(volume, pages)
             link = f"https://www.loc.gov/resource/pldec.{volume}/?sp={pages[0]}"
             combined = location + " " + district + " " + volume
             ldvp = {
@@ -167,6 +186,7 @@ for page in htmlPages:
                 "volume": volume,
                 "pages": pages,
                 "link": link,
+                "links":links,
                 "combined" : combined
             }
             listLDVP.append(ldvp)

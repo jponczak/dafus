@@ -33,9 +33,9 @@ import {
   });
   
   const navLinks = [
-    { title: `Library of Congress`, path: `/` },
-    { title: `contact`, path: `/contact` },
-    { title: `faq`, path: `/faq` }
+    { title: `How To Search`, path: `/faq`, target:`_self` },
+    { title: `Library of Congress`, path: `https://loc.gov`, target:`_blank` },
+    { title: `Help`, path: `/contact`, target:`_self` }
   ];
   
   const Header = () => {
@@ -59,8 +59,8 @@ import {
                     aria-labelledby="main navigation"
                     className={classes.navListDisplayFlex}
                   >
-                    {navLinks.map(({ title, path }) => (
-                      <a href={path} key={title} className={classes.linkText}>
+                    {navLinks.map(({ title, path, target }) => (
+                      <a href={path} target={target} key={title} className={classes.linkText}>
                         <ListItem button>
                           <ListItemText primary={title} />
                         </ListItem>
